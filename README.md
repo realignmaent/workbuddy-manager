@@ -11,6 +11,7 @@
 > 已部署的不受影响；重装 / 迁移时怎么取得源码，见
 > [部署指南的开头一节](deploy/README.md#〇上游源码从哪来随发布包分发)。
 
+![Tauri](https://img.shields.io/badge/Tauri-2.0-FFC131?logo=tauri&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-15-000000?logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
@@ -19,20 +20,39 @@
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-22c55e)
 
-[![Release](https://img.shields.io/github/v/release/ithtelab/workbuddy-manager?color=22c55e&label=Release)](https://github.com/ithtelab/workbuddy-manager/releases)
+[![Release](https://img.shields.io/github/v/release/realignmaent/workbuddy-manager?color=22c55e&label=Desktop%20Release)](https://github.com/realignmaent/workbuddy-manager/releases)
 [![Changelog](https://img.shields.io/badge/更新日志-CHANGELOG-blue)](CHANGELOG.md)
-[![Issues](https://img.shields.io/github/issues/ithtelab/workbuddy-manager?color=f59e0b&label=反馈)](https://github.com/ithtelab/workbuddy-manager/issues)
-[![LINUX DO](https://img.shields.io/badge/社区-LINUX%20DO-1f6feb)](https://linux.do)
+[![Desktop Guide](https://img.shields.io/badge/桌面端文档-DESKTOP-green)](docs/DESKTOP_CLIENT.md)
+[![Upstream](https://img.shields.io/badge/官方上游-ithtelab-blue)](https://github.com/ithtelab/workbuddy-manager)
 
 [English](README.en.md) · **简体中文**
 
-本项目在 [**LINUX DO**](https://linux.do) 社区发布与交流，欢迎佬友来玩。
+本项目派生自 [ithtelab/workbuddy-manager](https://github.com/ithtelab/workbuddy-manager)，并二次开发了 **Tauri 2.0 原生桌面客户端** 与自动化打包流。
 
 <img src="docs/images/dashboard.png" alt="WorkBuddy Manager 仪表盘" width="100%" />
 
 </div>
 
 ---
+
+## 📥 桌面客户端下载 (Desktop Client)
+
+提供类似于 **CC Switch / Antigravity Tools** 体验的原生桌面客户端（基于 Tauri 2.0 构建）：
+- 🖥️ **免配置即开即用**：零 Python/命令行门槛，双击直接启动。
+- 📌 **系统托盘常驻**：点击右上角关闭按钮自动最小化到 Windows 托盘，后台持续为 Cursor / VS Code / Claude Code 提供 `/v1` 接口。
+- ⚡ **一键快捷复制**：右键系统托盘即可一键复制本地 API 接口地址（`http://127.0.0.1:7864/v1`）。
+- 🔒 **全本地运行**：凭据、数据库、会话数据完全留在本机，安全可控。
+
+| 操作系统 | 架构 | 安装包类型 | 下载入口 |
+|:---|:---|:---|:---|
+| **Windows 10 / 11** | `x64` | 安装程序 (`.exe`) | [📥 点击前往 GitHub Releases 下载最新版](https://github.com/realignmaent/workbuddy-manager/releases/latest) |
+| **Windows 10 / 11** | `x64` | 微软打包格式 (`.msi`) | [📥 点击前往 GitHub Releases 下载最新版](https://github.com/realignmaent/workbuddy-manager/releases/latest) |
+| **源码编译** | 全平台 | Tauri 2.0 源码构建 | 参考 [桌面客户端构建指南](docs/DESKTOP_CLIENT.md) |
+
+> 💡 **云端自动打包**：代码已配置 GitHub Actions 自动化编译流。每次为分支打上版本标签（如 `v1.0.72`）并推送，GitHub 会自动在云端完成编译并发布到本仓库的 Releases 中。
+
+---
+
 
 ## 这是什么
 
