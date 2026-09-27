@@ -35,6 +35,7 @@ permissions:
 
 jobs:
   release:
+    if: github.repository == 'ithtelab/workbuddy-manager'
     runs-on: ubuntu-latest
     steps:
       - name: 解析版本号
