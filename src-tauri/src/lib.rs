@@ -1,7 +1,8 @@
 use std::process::{Child, Command};
 use std::sync::{Arc, Mutex};
 use tauri::{
-    menu::{Menu, MenuItem},
+    image::Image,
+    menu::MenuBuilder,
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
     Manager, WindowEvent,
 };
@@ -19,40 +20,22 @@ pub fn run() {
         .plugin(tauri_plugin_clipboard_manager::init())
         .manage(state)
         .setup(|app| {
-            // 1. 创建托盘菜单项
-            let show_i = MenuItem::with_id(app, "show", "打开控制台", true, None::<&str>)?;
-            let copy_api_i = MenuItem::with_id(
-                app,
-                "copy_api",
-                "复制 API 地址 (/v1)",
-                true,
-                None::<&str>,
-            )?;
-            let open_browser_i = MenuItem::with_id(
-                app,
-                "open_browser",
-                "在默认浏览器中打开",
-                true,
-                None::<&str>,
-            )?;
-            let sep = MenuItem::separator(app)?;
-            let quit_i = MenuItem::with_id(app, "quit", "完全退出", true, None::<&str>)?;
+            // 1. 使用 MenuBuilder 创建托盘菜单
+            let menu = MenuBuilder::new(app)
+                .text("show", "打开控制台")
+                .text("copy_api", "复制 API 地址 (/v1)")
+                .text("open_browser", "在默认浏览器中打开")
+                .separator()
+                .text("quit", "完全退出")
+                .build()?;
 
-            let menu = Menu::with_items(
-                app,
-                &[
-                    &show_i,
-                    &copy_api_i,
-                    &open_browser_i,
-                    &sep,
-                    &quit_i,
-                ],
-            )?;
+            // 2. 编译期静态载入图标构建系统托盘
+            let icon_bytes = include_bytes!("../icons/32x32.png");
+            let icon = Image::from_bytes(icon_bytes).expect("failed to parse icon image");
 
-            // 2. 构建系统托盘
             let _tray = TrayIconBuilder::new()
                 .menu(&menu)
-                .icon(app.default_window_icon().unwrap().clone())
+                .icon(icon)
                 .tooltip("WorkBuddy Manager")
                 .on_menu_event(|app, event| match event.id().as_ref() {
                     "show" => {
@@ -123,7 +106,6 @@ fn start_backend(app: &tauri::App) {
         use std::os::windows::process::CommandExt;
         const CREATE_NO_WINDOW: u32 = 0x08000000;
 
-        // 优先尝试寻找打包好的后端可执行文件，若无则使用系统 Python
         let mut cmd = Command::new("python");
         cmd.args(["-m", "uvicorn", "server.main:app", "--host", "127.0.0.1", "--port", "7864"])
             .creation_flags(CREATE_NO_WINDOW);
