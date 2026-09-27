@@ -121,3 +121,7 @@ local-ops/
 LOCAL_DEPLOY_NOTES.md
 start-all.cmd
 stop-all.cmd
+
+# ── Tauri 桌面构建产物 ─────
+src-tauri/target/
+
